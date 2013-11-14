@@ -1,0 +1,23 @@
+The player is <%= session[:player_name] %>
+<br>
+The player bank is <%= session[:player_bank]%>
+<br>
+The player bet is <%= session[:player_bet]%>
+<br/>
+<br/>
+
+Dealer cards:
+<ul>
+	<% session[:dealer_cards].each do |card| %>
+		<li><%= card.to_s %></li>
+	<% end %>
+</ul>
+
+<br/>
+
+Player cards:
+<ul>
+	<% session[:player_cards].each do |card| %>
+		<li><%= card.to_s %></li>
+	<% end %>
+</ul>

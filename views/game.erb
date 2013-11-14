@@ -1,0 +1,10 @@
+
+Welcome to Blackjack <%= session[:player_name] %>.
+<br>
+Enter your bet
+
+<form action="/game" method = "post">
+  <input type = "text" name="player_bet"/>
+  <br/>
+  <input type = "submit" class="btn"/>
+</from>
