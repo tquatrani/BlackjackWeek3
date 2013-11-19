@@ -1,10 +1,54 @@
+<h1> Welcome <%= session[:player_name] %> </h1>
 
-Welcome to Blackjack <%= session[:player_name] %>.
-<br>
-Enter your bet
 
-<form action="/game" method = "post">
-  <input type = "text" name="player_bet"/>
-  <br/>
-  <input type = "submit" class="btn"/>
-</from>
+<% if @play_again %>
+  <p>
+    <strong>Play again?</strong>
+    <a href="/game" class="btn btn-primary">Yes</a>
+    <a href="/game_over" class="btn"> No</a>
+  </p>
+<% end %>
+
+<div class = "well">
+	Dealer cards:
+	<% session[:dealer_cards].each_with_index do |card, i| %>
+	 	<% if session[:turn] != "dealer" && i == 0 %>
+	 		<img src = "/images/cards/cover.jpg">
+	 	<% else %>
+			<%= card_image(card) %>
+		<% end %>
+	<% end %>
+
+	<% if @show_dealer_hit %>
+		<h5>Dealer has <%= card_value(session[:dealer_cards])%> and will hit.</h5>
+		<form action='/game/dealer/hit' method='post'>
+       <input type='submit' class='btn btn-primary' value='Click to see dealer card &rarr;'>
+    </form>
+	<%end %>
+</div>
+
+<br/>
+
+<div class = "well">
+	Player cards:
+		<% session[:player_cards].each do |card| %>
+			<%= card_image(card) %>
+		<% end %>
+</div>
+
+
+<br/>
+
+<% if @show_hit_or_stay_buttons %>
+
+	<%=session[:player_name] %> you have <%=card_value(session[:player_cards]) %>
+	Do you want to hit or stay?
+	
+	<form action="/game/player/hit" method = 'post'>
+	   <input type = "submit" class="btn" value = "Hit" />
+	</form>
+
+	<form action="/game/player/stay" method = 'post'>
+	   <input type = "submit" class="btn" value = "Stay" />
+	</form>
+<%end%>
